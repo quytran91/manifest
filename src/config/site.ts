@@ -25,7 +25,7 @@ export const site = {
   name: 'THE MAGIC',
   tagline: 'Hành trình biết ơn',
   /** Chữ trên tấm biển vàng ở thanh HUD (góc trên trái). */
-  plate: 'Không Gian Biết Ơn',
+  plate: 'Manifest',
   /** Ảnh đại diện trên thanh HUD (cắt từ góc poster). */
   avatar: 'images/avatar.webp',
   description:
