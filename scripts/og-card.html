@@ -1,0 +1,122 @@
+<!doctype html>
+<!--
+  Nguồn của ảnh chia sẻ mạng xã hội (public/og-image-game.png, 1200×630).
+  Mở file này bằng trình duyệt ở cửa sổ 1200×630 rồi chụp màn hình, hoặc nhờ Claude chụp lại bằng Edge headless.
+  Font và ảnh lấy tương đối từ thư mục public/.
+-->
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<style>
+  @font-face {
+    font-family: 'Bungee Game';
+    src: url('../public/the-magic/assets/fonts/bungee-vietnamese-400-normal.woff2') format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+  }
+  @font-face {
+    font-family: 'Bungee Game';
+    src: url('../public/the-magic/assets/fonts/bungee-latin-ext-400-normal.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  @font-face {
+    font-family: 'Bungee Game';
+    src: url('../public/the-magic/assets/fonts/bungee-latin-400-normal.woff2') format('woff2');
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    --ink: #2a1400;
+    position: relative;
+    font-family: 'Bungee Game', 'Segoe UI', sans-serif;
+    background: linear-gradient(180deg, #1f7ae0 0%, #4fb0ff 45%, #a9e2ff 78%, #c9eeff 100%);
+  }
+  /* tia sáng */
+  .rays {
+    position: absolute; left: 700px; top: 250px; width: 1800px; height: 1800px; translate: -50% -50%;
+    background: repeating-conic-gradient(from 0deg, rgb(255 246 190 / 0.38) 0deg 7deg, transparent 7deg 18deg);
+    mask: radial-gradient(circle, #000 0%, rgb(0 0 0 / 0.55) 22%, transparent 45%);
+  }
+  .px { position: absolute; image-rendering: pixelated; }
+  /* bãi biển pixel ở đáy */
+  .beach {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 120px;
+    background:
+      linear-gradient(#9be3ff, #9be3ff) 0 0 / 100% 4px no-repeat,
+      repeating-linear-gradient(90deg, #fff 0 8px, transparent 8px 16px) 0 40px / 100% 4px no-repeat,
+      linear-gradient(#1ea4dc, #178cc6) 0 4px / 100% 38px no-repeat,
+      linear-gradient(#f0c050, #f0c050) 0 44px / 100% 5px no-repeat,
+      #ffd666;
+  }
+  /* sách */
+  .book {
+    position: absolute; left: 52px; top: 70px; width: 300px;
+    rotate: -6deg;
+    filter: drop-shadow(0 0 30px rgb(255 214 80 / 0.7)) drop-shadow(0 22px 22px rgb(0 20 70 / 0.5));
+  }
+  /* nội dung */
+  .content { position: absolute; left: 390px; right: 40px; top: 34px; }
+  .tag {
+    display: inline-block; font-size: 22px; letter-spacing: 1px; color: #fff; background: #e0245e;
+    border: 4px solid var(--ink); border-radius: 999px; padding: 8px 22px 6px; box-shadow: 0 5px 0 var(--ink);
+  }
+  h1 { font-weight: 400; margin: 40px 0 0; line-height: 1.05; }
+  .line { display: block; width: fit-content; position: relative; }
+  .l1 { rotate: -5deg; transform-origin: left bottom; }
+  .l2 { margin: 6px 0 0 30px; rotate: -1.5deg; }
+  .t3d {
+    position: relative; display: block; padding-top: 0.14em; letter-spacing: 0.06em;
+    -webkit-text-stroke: 0.075em var(--ink); paint-order: stroke fill;
+    filter:
+      drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff) drop-shadow(0 -4px 0 #fff)
+      drop-shadow(2px 0 0 var(--ink)) drop-shadow(-2px 0 0 var(--ink)) drop-shadow(0 2px 0 var(--ink)) drop-shadow(0 -2px 0 var(--ink))
+      drop-shadow(0 14px 10px rgb(0 20 70 / 0.4));
+  }
+  .t3d::after {
+    content: attr(data-text); position: absolute; inset: 0; padding-top: inherit;
+    -webkit-text-stroke: 0; text-shadow: none; -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .gold { font-size: 74px; color: #ffb000;
+    text-shadow: 0 2px 0 #f0a000, 0 4px 0 #e08a00, 0 6px 0 #c86e00, 0 8px 0 #a85400, 0 10px 0 #8f4100, 0 12px 0 var(--ink), 0 14px 0 var(--ink); }
+  .gold::after { background-image: linear-gradient(180deg, rgb(255 255 255 / 0.95) 0 30%, transparent 46%), linear-gradient(180deg, #fffbe0 0%, #ffe45c 40%, #ffbe1a 62%, #ff9800 100%); }
+  .blue { font-size: 112px; color: #2f8cff;
+    text-shadow: 0 2px 0 #2479e3, 0 4px 0 #1e6ed4, 0 6px 0 #1963c3, 0 8px 0 #1557b1, 0 10px 0 #114c9f, 0 12px 0 #0b3676, 0 14px 0 var(--ink), 0 16px 0 var(--ink); }
+  .blue::after { background-image: linear-gradient(180deg, rgb(255 255 255 / 0.95) 0 28%, transparent 45%), linear-gradient(180deg, #ffffff 0%, #c9f0ff 38%, #6fcbff 62%, #2e8fff 100%); }
+  .sub {
+    margin: 24px 0 0 6px; font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 30px; color: #fff;
+    text-shadow: 2px 2px 0 var(--ink), -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 0 4px 0 var(--ink);
+  }
+  .start {
+    display: inline-flex; align-items: center; gap: 16px; margin: 26px 0 0 6px;
+    font-size: 34px; color: #fff; text-shadow: 0 3px 0 #7a3d00;
+    background: linear-gradient(180deg, #ffe066, #ffb000 55%, #f08a00);
+    border: 5px solid var(--ink); border-radius: 18px; padding: 16px 34px 12px;
+    box-shadow: inset 0 4px 0 rgb(255 255 255 / 0.6), 0 8px 0 #7a3d00, 0 0 0 7px rgb(255 224 102 / 0.55);
+  }
+  .start b { font-family: 'Segoe UI Symbol', sans-serif; font-size: 30px; }
+</style>
+</head>
+<body>
+  <div class="rays"></div>
+  <!-- mây + mặt trời pixel -->
+  <svg class="px" style="left:30px;top:20px;width:150px" viewBox="0 0 32 14" shape-rendering="crispEdges"><path fill="#fff" d="M10 3h8V2h6v2h2v2h2v2h2v2h2v3H0v-3h2V8h2V6h4V4h2z"/><path fill="#d6f0ff" d="M0 12h32v1H0z"/></svg>
+  <svg class="px" style="right:200px;top:14px;width:110px" viewBox="0 0 32 14" shape-rendering="crispEdges"><path fill="#fff" d="M10 3h8V2h6v2h2v2h2v2h2v2h2v3H0v-3h2V8h2V6h4V4h2z"/><path fill="#d6f0ff" d="M0 12h32v1H0z"/></svg>
+  <svg class="px" style="right:36px;top:24px;width:96px;filter:drop-shadow(0 0 18px rgb(255 225 74 / 0.8))" viewBox="0 0 24 24" shape-rendering="crispEdges"><path fill="#ffc21a" d="M11 0h2v3h-2zM11 21h2v3h-2zM0 11h3v2H0zM21 11h3v2h-3zM3 3h2v2H3zM19 3h2v2h-2zM3 19h2v2H3zM19 19h2v2h-2z"/><path fill="#ffe14a" d="M8 4h8v2h2v2h2v8h-2v2h-2v2H8v-2H6v-2H4V8h2V6h2z"/><path fill="#fff6b0" d="M8 7h4v2h-2v2H8z"/></svg>
+  <div class="beach"></div>
+  <!-- xu + kim cương -->
+  <svg class="px" style="left:330px;top:440px;width:54px" viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3a0"/><stop offset=".5" stop-color="#ffc21a"/><stop offset="1" stop-color="#d97a00"/></linearGradient></defs><circle cx="16" cy="16" r="14" fill="url(#g)" stroke="#7a3d00" stroke-width="2.5"/><circle cx="16" cy="16" r="9.5" fill="none" stroke="#b86200" stroke-width="1.6"/><path d="M13 11h6M16 9v14M13 21h6" stroke="#9a4f00" stroke-width="2.2"/></svg>
+  <svg class="px" style="right:70px;top:440px;width:64px" viewBox="0 0 32 32"><defs><linearGradient id="i" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#7fd8ff"/><stop offset="1" stop-color="#1f7ae0"/></linearGradient></defs><path d="M8 5h16l6 8-14 16L2 13z" fill="url(#i)" stroke="#0b3a8c" stroke-width="2" stroke-linejoin="round"/><path d="M9 7h5l-3 4z" fill="#fff" opacity=".85"/></svg>
+  <svg class="px" style="left:24px;top:500px;width:46px" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="url(#g)" stroke="#7a3d00" stroke-width="2.5"/><path d="M13 11h6M16 9v14M13 21h6" stroke="#9a4f00" stroke-width="2.2"/></svg>
+
+  <img class="book" src="../public/images/the-magic-book-cover-img.webp" alt="" />
+
+  <div class="content">
+    <span class="tag">★ Nhiệm vụ mới đã mở ★</span>
+    <h1>
+      <span class="line l1"><span class="t3d gold" data-text="Mở khoá">Mở khoá</span></span>
+      <span class="line l2"><span class="t3d blue" data-text="The Magic">The Magic</span></span>
+    </h1>
+    <p class="sub">28 ngày thực hành lòng biết ơn</p>
+    <span class="start"><b>▶</b> Bấm để bắt đầu</span>
+  </div>
+</body>
+</html>

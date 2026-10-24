@@ -52,6 +52,20 @@
   html {
     background: none;
   }
+
+  /*
+   * SỬA LỖI TRANG TRỐNG TRÊN ĐIỆN THOẠI (lỗi gốc của Muse):
+   * cả khung chương có class .reveal (opacity 0) và chỉ hiện khi ≥6% khung nằm trong màn hình.
+   * Chương dài 10.000–14.000px trên điện thoại thì không bao giờ đạt 6% → người đọc chỉ thấy nền.
+   * Khung chương luôn hiển thị; các khối nhỏ bên trong vẫn giữ hiệu ứng hiện dần.
+   */
+  .chapter.reveal,
+  .sect.reveal,
+  .grid.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
   body {
     position: relative;
     background: #2b8cf0;

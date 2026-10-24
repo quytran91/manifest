@@ -32,5 +32,5 @@ export const site = {
     'Khám phá The Magic của Rhonda Byrne và bắt đầu hành trình thực hành lòng biết ơn trong 28 ngày.',
   locale: 'vi_VN',
   /** Ảnh chia sẻ mạng xã hội, đường dẫn trong thư mục public/. */
-  ogImage: 'og-image.png',
+  ogImage: 'og-image-game.png',
 } as const;

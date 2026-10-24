@@ -65,7 +65,9 @@ qua hàm `url()` trong `src/lib/url.ts` nên chạy được ở cả domain g�
 | `public/images/the-magic-book-cover-img.webp` | Bìa sách The Magic |
 
 Đổi poster: thay `manifest-poster.png` rồi tạo lại hai bản WebP (cùng tên) bằng `sharp`.
-Ảnh chia sẻ mạng xã hội: `node scripts/make-og.mjs "THE MAGIC" "Hành trình biết ơn"`.
+Ảnh chia sẻ mạng xã hội (Zalo, Facebook…): `public/og-image-game.png` (1200×630), dựng từ
+`scripts/og-card.html` rồi chụp ở cửa sổ 1200×630. Khi đổi ảnh, nên đổi luôn tên file (và `ogImage`
+trong `src/config/site.ts`) vì Zalo/Facebook giữ ảnh cũ theo đường dẫn khá lâu.
 
 ## Cấu trúc
 
