@@ -467,8 +467,10 @@
     .brand span {
       display: none;
     }
+    /* Giãn dòng để khối 3D của dòng trên không chạm dấu của dòng dưới. */
     .hero h1 {
-      font-size: 30px !important;
+      font-size: 28px !important;
+      line-height: 1.45 !important;
     }
     /* Tiêu đề phụ trong bài: cho xuống dòng thay vì bị cắt ở mép khung. */
     .ch-sub span {
