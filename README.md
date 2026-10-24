@@ -31,7 +31,8 @@ export const THE_MAGIC_INDEX_URL: string | null = 'https://quytran91.github.io/t
 
 - Để `null`: mọi nút vẫn hiện; nhấn sẽ hiện thông báo "Mục lục The Magic đang được chuẩn bị".
 - Điền URL: cả 3 nút (hero, phần sách, thanh đáy trên điện thoại) mở thẳng URL đó, cùng tab.
-- Build sẽ báo lỗi nếu URL không bắt đầu bằng `http://` hoặc `https://`.
+- Hiện đang là `'the-magic/'` (ebook đi kèm trong website). Có thể thay bằng link ngoài `https://...`.
+- Build sẽ báo lỗi nếu giá trị sai dạng.
 
 ## Chạy và build
 
