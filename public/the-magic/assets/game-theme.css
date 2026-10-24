@@ -1,0 +1,396 @@
+/* Tự sinh bởi them-theme-game.mjs từ theme-game/_fontface.css + _theme.css. Đừng sửa trực tiếp file này. */
+@font-face {
+  font-family: 'Bungee Game';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('fonts/bungee-vietnamese-400-normal.woff2') format('woff2');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+@font-face {
+  font-family: 'Bungee Game';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('fonts/bungee-latin-ext-400-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Bungee Game';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('fonts/bungee-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+/* =====================================================================
+ * THEME GAME PIXEL VÀNG cho ebook "28 Ngày Ma Thuật"
+ * Lớp phủ lên CSS gốc của Muse; không sửa nội dung trang.
+ *  - Bên ngoài: trời xanh, mây, mặt trời, bãi biển pixel ở chân trang; thanh trên cùng kiểu HUD.
+ *  - Khung đọc: hộp thoại RPG (nền xanh đêm, viền đậm, viền vàng, bóng nổi khối),
+ *    giữ chữ sáng như bản gốc nên trích dẫn và hình minh hoạ không bị vỡ màu.
+ *  - Tiêu đề: chữ khối 3D font Bungee (có dấu tiếng Việt); nút: nút game vàng.
+ * Chỉ áp dụng khi xem trên màn hình; khi in vẫn dùng giao diện gốc.
+ * ===================================================================== */
+@media screen {
+  :root {
+    --bg: #2b8cf0;
+    --card1: #17386e;
+    --card2: #0c1f40;
+    --line: rgba(255, 243, 160, 0.22);
+    --muted: #c3d0ec;
+    --faint: #a3b3d6;
+    --gm-ink: #2a1400;
+    --gm-deep: #7a3d00;
+    --gm-gold: #ffc21a;
+    --gm-gold-hi: #fff3a0;
+    --gm-title: 'Bungee Game', 'Segoe UI', system-ui, sans-serif;
+  }
+
+  html {
+    background: none;
+  }
+  body {
+    position: relative;
+    background: #2b8cf0;
+  }
+
+  /* ---------- Bầu trời cố định: mặt trời + mây pixel ---------- */
+  body::before {
+    display: block !important;
+    content: '' !important;
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: -2 !important;
+    animation: none !important;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' shape-rendering='crispEdges'%3E%3Cpath fill='%23ffc21a' d='M11 0h2v3h-2zM11 21h2v3h-2zM0 11h3v2H0zM21 11h3v2h-3zM3 3h2v2H3zM19 3h2v2h-2zM3 19h2v2H3zM19 19h2v2h-2z'/%3E%3Cpath fill='%23ffe14a' d='M8 4h8v2h2v2h2v8h-2v2h-2v2H8v-2H6v-2H4V8h2V6h2z'/%3E%3Cpath fill='%23fff6b0' d='M8 7h4v2h-2v2H8z'/%3E%3C/svg%3E")
+        right 4% top 92px / 84px no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 14' shape-rendering='crispEdges'%3E%3Cpath fill='%23fff' d='M10 3h8V2h6v2h2v2h2v2h2v2h2v3H0v-3h2V8h2V6h4V4h2z'/%3E%3Cpath fill='%23d6f0ff' d='M0 12h32v1H0zM24 9h4v1h-4z'/%3E%3C/svg%3E")
+        3% 130px / 150px no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 14' shape-rendering='crispEdges'%3E%3Cpath fill='%23fff' d='M10 3h8V2h6v2h2v2h2v2h2v2h2v3H0v-3h2V8h2V6h4V4h2z'/%3E%3Cpath fill='%23d6f0ff' d='M0 12h32v1H0zM24 9h4v1h-4z'/%3E%3C/svg%3E")
+        44% 78px / 104px no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 14' shape-rendering='crispEdges'%3E%3Cpath fill='%23fff' d='M10 3h8V2h6v2h2v2h2v2h2v2h2v3H0v-3h2V8h2V6h4V4h2z'/%3E%3Cpath fill='%23d6f0ff' d='M0 12h32v1H0zM24 9h4v1h-4z'/%3E%3C/svg%3E")
+        97% 300px / 128px no-repeat,
+      linear-gradient(180deg, #2b8cf0 0%, #5cb8ff 40%, #a9e2ff 85%, #c9eeff 100%) !important;
+  }
+
+  /* ---------- Bãi biển pixel ở chân trang: biển + bọt sóng + cát + dừa + rương vàng ---------- */
+  body::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 250px;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 40' shape-rendering='crispEdges'%3E%3Cpath fill='%238a4b14' d='M11 14h3v6h-3zM12 20h3v6h-3zM12 26h3v7h-3zM11 33h3v7h-3z'/%3E%3Cpath fill='%23c27a2c' d='M11 14h1v6h-1zM12 20h1v6h-1zM12 26h1v7h-1zM11 33h1v7h-1z'/%3E%3Cpath fill='%231f8a3a' d='M1 13h2v2H1zM3 11h2v2H3zM5 9h2v2H5zM7 8h4v2H7zM21 13h2v2h-2zM19 11h2v2h-2zM17 9h2v2h-2zM13 8h4v2h-4zM11 6h2v3h-2zM12 4h3v2h-3zM14 3h3v2h-3zM8 11h2v2H8zM6 13h2v2H6zM5 15h2v2H5zM14 11h2v2h-2zM16 13h2v2h-2zM17 15h2v2h-2z'/%3E%3Cpath fill='%234cc85e' d='M2 12h2v1H2zM4 10h2v1H4zM6 8h2v1H6zM20 12h2v1h-2zM18 10h2v1h-2zM16 8h2v1h-2zM13 3h3v1h-3z'/%3E%3Cpath fill='%235a2e0c' d='M10 12h2v2h-2zM13 12h2v2h-2z'/%3E%3C/svg%3E")
+        left -14px bottom 26px / 120px auto no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 40' shape-rendering='crispEdges'%3E%3Cg transform='translate(24 0) scale(-1 1)'%3E%3Cpath fill='%238a4b14' d='M11 14h3v6h-3zM12 20h3v6h-3zM12 26h3v7h-3zM11 33h3v7h-3z'/%3E%3Cpath fill='%23c27a2c' d='M11 14h1v6h-1zM12 20h1v6h-1zM12 26h1v7h-1zM11 33h1v7h-1z'/%3E%3Cpath fill='%231f8a3a' d='M1 13h2v2H1zM3 11h2v2H3zM5 9h2v2H5zM7 8h4v2H7zM21 13h2v2h-2zM19 11h2v2h-2zM17 9h2v2h-2zM13 8h4v2h-4zM11 6h2v3h-2zM12 4h3v2h-3zM14 3h3v2h-3zM8 11h2v2H8zM6 13h2v2H6zM5 15h2v2H5zM14 11h2v2h-2zM16 13h2v2h-2zM17 15h2v2h-2z'/%3E%3Cpath fill='%234cc85e' d='M2 12h2v1H2zM4 10h2v1H4zM6 8h2v1H6zM20 12h2v1h-2zM18 10h2v1h-2zM16 8h2v1h-2zM13 3h3v1h-3z'/%3E%3Cpath fill='%235a2e0c' d='M10 12h2v2h-2zM13 12h2v2h-2z'/%3E%3C/g%3E%3C/svg%3E")
+        right -14px bottom 26px / 120px auto no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16' shape-rendering='crispEdges'%3E%3Cpath fill='%23ffd34e' d='M3 1h3v2H3zM7 0h3v2H7zM12 1h3v2h-3z'/%3E%3Cpath fill='%23a85d1c' d='M2 3h16v5H2z'/%3E%3Cpath fill='%238a4b14' d='M1 8h18v7H1z'/%3E%3Cpath fill='%23ffc21a' d='M1 7h18v1H1zM9 3h2v12H9z'/%3E%3Cpath fill='%23fff3a0' d='M9 9h2v2H9z'/%3E%3Cpath fill='%235a2e0c' d='M1 15h18v1H1z'/%3E%3C/svg%3E")
+        right 150px bottom 22px / 58px auto no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8' shape-rendering='crispEdges'%3E%3Crect width='8' height='4' fill='%23fff'/%3E%3Crect x='8' y='3' width='8' height='4' fill='%23fff'/%3E%3Crect x='16' width='8' height='4' fill='%23fff'/%3E%3C/svg%3E")
+        0 62px / 24px 8px repeat-x,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='60' shape-rendering='crispEdges'%3E%3Crect width='48' height='60' fill='%231ea4dc'/%3E%3Crect y='8' width='48' height='3' fill='%23178cc6'/%3E%3Crect y='22' width='48' height='3' fill='%23178cc6'/%3E%3Crect y='36' width='48' height='3' fill='%23178cc6'/%3E%3Crect y='50' width='48' height='3' fill='%23178cc6'/%3E%3Crect x='4' y='3' width='6' height='2' fill='%23bff0ff'/%3E%3Crect x='28' y='16' width='8' height='2' fill='%23bff0ff'/%3E%3Crect x='12' y='30' width='6' height='2' fill='%23fff'/%3E%3Crect x='36' y='44' width='6' height='2' fill='%23bff0ff'/%3E%3C/svg%3E")
+        0 4px / 48px 60px repeat-x,
+      linear-gradient(#9be3ff, #9be3ff) 0 0 / 100% 4px no-repeat,
+      linear-gradient(#f0c050, #f0c050) 0 68px / 100% 5px no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' shape-rendering='crispEdges'%3E%3Crect width='24' height='24' fill='%23ffd666'/%3E%3Crect x='3' y='4' width='2' height='2' fill='%23f2bd3e'/%3E%3Crect x='15' y='9' width='2' height='2' fill='%23f2bd3e'/%3E%3Crect x='8' y='17' width='2' height='2' fill='%23fff0b0'/%3E%3Crect x='19' y='20' width='2' height='2' fill='%23e8ad2e'/%3E%3C/svg%3E")
+        0 68px / 24px 24px repeat;
+    image-rendering: pixelated;
+  }
+
+  /* ---------- Thanh trên cùng kiểu HUD ---------- */
+  .topbar {
+    background: linear-gradient(180deg, rgb(31 110 210 / 0.96), rgb(43 140 240 / 0.92)) !important;
+    border-bottom: 4px solid var(--gm-ink) !important;
+    box-shadow: 0 4px 0 rgb(0 30 80 / 0.25);
+  }
+  .brand {
+    font-family: var(--gm-title);
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    letter-spacing: 0.02em !important;
+    color: var(--gm-gold-hi) !important;
+    background: linear-gradient(180deg, #5a2a00, #2a1400);
+    border: 2px solid var(--gm-gold);
+    border-radius: 8px;
+    padding: 6px 12px;
+    text-shadow: 0 2px 0 #000;
+  }
+  .brand span {
+    color: #fff !important;
+  }
+  .brand .dot {
+    color: var(--gm-gold) !important;
+  }
+
+  /* ---------- Nút game vàng ---------- */
+  .btn {
+    color: var(--gm-ink) !important;
+    background: linear-gradient(180deg, #ffe066, #ffb000 55%, #f08a00) !important;
+    border: 3px solid var(--gm-ink) !important;
+    border-radius: 12px !important;
+    box-shadow:
+      inset 0 2px 0 rgb(255 255 255 / 0.6),
+      0 4px 0 var(--gm-deep);
+    font-weight: 800 !important;
+    transition:
+      transform 0.1s,
+      box-shadow 0.1s;
+  }
+  .btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+  }
+  .btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--gm-deep);
+  }
+  .btn.disabled {
+    background: #e9e2cf !important;
+    color: #7a6a4a !important;
+    box-shadow: 0 4px 0 #8c7d5c;
+    filter: none;
+  }
+  .btn:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+  }
+
+  #totop {
+    background: linear-gradient(180deg, #ffe066, #ffb000 55%, #f08a00) !important;
+    border: 3px solid var(--gm-ink) !important;
+    box-shadow: 0 4px 0 var(--gm-deep);
+    backdrop-filter: none !important;
+  }
+
+  /* ---------- Khung đọc: hộp thoại RPG ---------- */
+  .chapter,
+  .card,
+  .stat {
+    background: linear-gradient(180deg, var(--card1), var(--card2)) !important;
+    border: 4px solid var(--gm-ink) !important;
+    box-shadow:
+      inset 0 0 0 3px var(--gm-gold),
+      inset 0 0 0 5px rgb(42 20 0 / 0.6),
+      0 9px 0 #0a1a3a,
+      0 26px 50px rgb(0 30 80 / 0.35) !important;
+  }
+  .chapter {
+    border-radius: 20px !important;
+  }
+  .card {
+    border-radius: 18px !important;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+      inset 0 0 0 3px var(--gm-gold-hi),
+      inset 0 0 0 5px rgb(42 20 0 / 0.6),
+      0 13px 0 #0a1a3a,
+      0 30px 54px rgb(0 30 80 / 0.4) !important;
+  }
+  .chapter::before,
+  .card::before {
+    left: 8px !important;
+    right: 8px !important;
+    top: 8px !important;
+    border-radius: 4px;
+  }
+
+  /* Số ngày: huy hiệu đồng xu vàng */
+  .ch-num {
+    border-radius: 50% !important;
+    font-family: var(--gm-title) !important;
+    font-weight: 400 !important;
+    color: var(--gm-deep) !important;
+    background: radial-gradient(circle at 35% 30%, #fff6b0, #ffd34e 45%, #e09a00) !important;
+    border: 3px solid var(--gm-ink);
+    box-shadow:
+      inset 0 0 0 4px rgb(255 255 255 / 0.35),
+      0 4px 0 var(--gm-deep) !important;
+    text-shadow: 0 1px 0 #fff3a0;
+  }
+  .ch-kicker,
+  .kicker {
+    font-family: var(--gm-title) !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  /* Tiêu đề ngày: chữ khối 3D vàng */
+  .ch-title,
+  .ch-head.center .ch-title {
+    font-family: var(--gm-title) !important;
+    font-weight: 400 !important;
+    font-size: clamp(24px, 3.4vw, 36px) !important;
+    line-height: 1.32 !important;
+    letter-spacing: 0.03em !important;
+    background: none !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+    -webkit-text-fill-color: currentColor !important;
+    color: #ffe066 !important;
+    animation: none !important;
+    padding-top: 0.12em;
+    -webkit-text-stroke: 0.06em var(--gm-ink);
+    paint-order: stroke fill;
+    text-shadow:
+      0 2px 0 #f0a000,
+      0 4px 0 #c06000,
+      0 6px 0 var(--gm-ink),
+      0 7px 0 var(--gm-ink),
+      0 12px 14px rgb(0 0 0 / 0.45) !important;
+  }
+  .ctitle {
+    font-family: var(--gm-title);
+    font-weight: 400 !important;
+    font-size: 22px !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.02em !important;
+    color: #fff3c4 !important;
+  }
+
+  /* Trích dẫn, hình: viền game */
+  .quote-sweep,
+  .quote-gold,
+  .magic-task,
+  .magic-reminder,
+  .infog,
+  .note {
+    border-width: 2px !important;
+  }
+  .ch-fig {
+    border: 3px solid var(--gm-ink) !important;
+    box-shadow:
+      0 0 0 3px var(--gm-gold),
+      0 12px 30px rgb(0 0 0 / 0.45) !important;
+  }
+
+  /* ---------- Trang mục lục (index) ---------- */
+  .hero .kick {
+    display: inline-block;
+    font-family: var(--gm-title);
+    font-weight: 400 !important;
+    letter-spacing: 0.06em !important;
+    color: #fff !important;
+    background: #e0245e;
+    border: 3px solid var(--gm-ink);
+    border-radius: 999px;
+    padding: 6px 16px;
+    box-shadow: 0 4px 0 var(--gm-ink);
+  }
+  .hero h1 {
+    font-family: var(--gm-title);
+    font-weight: 400 !important;
+    letter-spacing: 0.03em !important;
+    line-height: 1.25 !important;
+    color: #ffe066;
+    -webkit-text-stroke: 0.05em var(--gm-ink);
+    paint-order: stroke fill;
+    text-shadow:
+      0 2px 0 #f0a000,
+      0 4px 0 #c06000,
+      0 6px 0 var(--gm-ink),
+      0 8px 0 var(--gm-ink),
+      0 14px 16px rgb(0 40 100 / 0.35);
+  }
+  .hero h1 .hl {
+    background: none !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+    -webkit-text-fill-color: currentColor !important;
+    color: #eaf8ff !important;
+    text-shadow:
+      0 2px 0 #5cc3ff,
+      0 4px 0 #1f7ae0,
+      0 6px 0 #0b2a6b,
+      0 8px 0 var(--gm-ink),
+      0 14px 16px rgb(0 40 100 / 0.35);
+  }
+  .hero p.sub,
+  .sect .sdesc {
+    color: #0b2350 !important;
+    font-weight: 600;
+  }
+  .stat b {
+    font-family: var(--gm-title);
+    font-weight: 400 !important;
+    color: #ffe066;
+  }
+  .pill {
+    font-family: var(--gm-title) !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.06em !important;
+    border: 3px solid var(--gm-ink);
+    box-shadow: 0 5px 0 var(--gm-ink) !important;
+  }
+  .visual figure {
+    margin: 0;
+    border: 4px solid var(--gm-ink);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 3px var(--gm-gold),
+      0 10px 0 #0a1a3a,
+      0 26px 50px rgb(0 30 80 / 0.35);
+  }
+
+  /* ---------- Chân trang nằm trên bãi cát ---------- */
+  .foot {
+    position: relative;
+    padding: 120px 20px 70px !important;
+    color: var(--gm-ink) !important;
+    font-weight: 700;
+  }
+  .foot .heart {
+    color: #e0245e;
+  }
+
+  @media (max-width: 640px) {
+    body::before {
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' shape-rendering='crispEdges'%3E%3Cpath fill='%23ffc21a' d='M11 0h2v3h-2zM11 21h2v3h-2zM0 11h3v2H0zM21 11h3v2h-3zM3 3h2v2H3zM19 3h2v2h-2zM3 19h2v2H3zM19 19h2v2h-2z'/%3E%3Cpath fill='%23ffe14a' d='M8 4h8v2h2v2h2v8h-2v2h-2v2H8v-2H6v-2H4V8h2V6h2z'/%3E%3Cpath fill='%23fff6b0' d='M8 7h4v2h-2v2H8z'/%3E%3C/svg%3E")
+          right 4% top 76px / 52px no-repeat,
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 14' shape-rendering='crispEdges'%3E%3Cpath fill='%23fff' d='M10 3h8V2h6v2h2v2h2v2h2v2h2v3H0v-3h2V8h2V6h4V4h2z'/%3E%3Cpath fill='%23d6f0ff' d='M0 12h32v1H0zM24 9h4v1h-4z'/%3E%3C/svg%3E")
+          4% 90px / 84px no-repeat,
+        linear-gradient(180deg, #2b8cf0 0%, #5cb8ff 40%, #a9e2ff 85%, #c9eeff 100%) !important;
+    }
+    body::after {
+      background-size:
+        76px auto,
+        76px auto,
+        0 0,
+        24px 8px,
+        48px 60px,
+        100% 4px,
+        100% 5px,
+        24px 24px;
+    }
+    .foot {
+      max-width: 17rem;
+      margin: 0 auto;
+    }
+    /* HUD gọn một dòng: chỉ giữ "28 Ngày Ma Thuật". */
+    .brand {
+      font-size: 11px !important;
+      white-space: nowrap;
+    }
+    .brand span {
+      display: none;
+    }
+    .hero h1 {
+      font-size: 30px !important;
+    }
+    /* Tiêu đề phụ trong bài: cho xuống dòng thay vì bị cắt ở mép khung. */
+    .ch-sub span {
+      white-space: normal !important;
+    }
+  }
+}

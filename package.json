@@ -1,0 +1,29 @@
+{
+  "name": "khong-gian-biet-on",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "build:subpath": "cross-env BASE_PATH=/manifest astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "preview:subpath": "cross-env BASE_PATH=/manifest astro preview --port 4321",
+    "check:links": "node scripts/check-links.mjs",
+    "og": "node scripts/make-og.mjs",
+    "sync:ebook": "node scripts/sync-ebook.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/lora": "^5.3.0",
+    "@fontsource/be-vietnam-pro": "^5.3.0",
+    "@fontsource/bungee": "^5.3.0",
+    "astro": "^5.18.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "cross-env": "^10.1.0",
+    "typescript": "^5.9.3"
+  }
+}

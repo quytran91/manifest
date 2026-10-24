@@ -1,0 +1,24 @@
+/*
+ * Bảng màu lấy từ poster: biển xanh sâu, vàng sáng, trắng kem, đỏ nam châm.
+ * Tương phản: chữ #FFF8E7 trên nền #071D35 ≈ 16:1; chữ #071D35 trên nút vàng #FFD34E ≈ 12:1.
+ */
+:root {
+  color-scheme: dark;
+  --bg: #071d35;
+  --surface: #103553;
+  --surface-2: #0b2944;
+  --gold: #ffd34e;
+  --gold-deep: #c9971a;
+  --text: #fff8e7;
+  --text-soft: #c9d6e3;
+  --red: #db493c;
+  --edge: #02101f;
+  --focus: #ffd34e;
+
+  --font-display: 'Bungee', 'Be Vietnam Pro', system-ui, sans-serif;
+  --font-sans: 'Be Vietnam Pro', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --max: 1120px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --bar-h: 72px;
+}

@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/url';
+---
+
+<BaseLayout title="Không tìm thấy trang" description="Trang bạn tìm không tồn tại hoặc đã được chuyển đi." noindex>
+  <main id="main" class="nf" tabindex="-1">
+    <p class="code" aria-hidden="true">404</p>
+    <h1>Màn chơi này không tồn tại</h1>
+    <p>Có thể đường dẫn đã thay đổi. Quay lại màn hình bắt đầu nhé.</p>
+    <a class="btn-game" href={url()}>
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3l12 7-12 7z" fill="currentColor"></path></svg>
+      Về màn hình bắt đầu
+    </a>
+  </main>
+</BaseLayout>
+
+<style>
+  .nf {
+    min-height: 80svh;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 0.25rem;
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+  .nf:focus {
+    outline: none;
+  }
+  .code {
+    margin: 0;
+    font: 400 clamp(4rem, 3rem + 8vw, 7rem) / 1 var(--font-display);
+    color: var(--gold);
+    text-shadow:
+      4px 4px 0 var(--red),
+      7px 7px 0 var(--edge);
+  }
+  h1 {
+    font-size: clamp(1.3rem, 1rem + 2vw, 2rem);
+    margin-top: 1rem;
+  }
+  p {
+    color: var(--text-soft);
+    margin-bottom: 1.5rem;
+  }
+</style>

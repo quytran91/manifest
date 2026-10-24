@@ -1,0 +1,31 @@
+---
+/**
+ * Nút mở mục lục The Magic, dùng chung cho mọi CTA.
+ * - Có THE_MAGIC_INDEX_URL: thẻ <a> điều hướng bình thường, cùng tab.
+ * - Chưa có: <button data-pending>; script trang chủ bắt sự kiện và hiện thông báo
+ *   "đang được chuẩn bị" (không dùng href="#" để trang không nhảy lên đầu).
+ */
+import { THE_MAGIC_INDEX_URL } from '../config/site';
+import { url } from '../lib/url';
+
+interface Props {
+  class?: string;
+  'aria-label'?: string;
+  [data: `data-${string}`]: boolean | string | undefined;
+}
+const { class: className, ...rest } = Astro.props;
+// Link ngoài giữ nguyên; đường dẫn nội bộ (vd 'the-magic/') ghép với base URL của website.
+const href = THE_MAGIC_INDEX_URL && (/^https?:/.test(THE_MAGIC_INDEX_URL) ? THE_MAGIC_INDEX_URL : url(THE_MAGIC_INDEX_URL));
+---
+
+{
+  href ? (
+    <a href={href} class={className} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button type="button" class={className} data-pending {...rest}>
+      <slot />
+    </button>
+  )
+}

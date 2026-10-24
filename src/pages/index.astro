@@ -1,0 +1,1242 @@
+---
+/**
+ * Landing "Mở khoá The Magic": màn hình game pixel vàng theo poster "Tôi là một thỏi nam châm hút tiền".
+ * Mục tiêu duy nhất: dẫn người đọc tới mục lục ebook The Magic.
+ * URL mục lục: THE_MAGIC_INDEX_URL trong src/config/site.ts (mọi nút dùng chung qua <Cta>).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Cta from '../components/Cta.astro';
+import { THE_MAGIC_INDEX_URL, site } from '../config/site';
+import { url } from '../lib/url';
+
+const indexUrl = THE_MAGIC_INDEX_URL;
+
+const powerUps = [
+  { icon: 'coin', title: '28 màn chơi', text: 'Mỗi ngày một bài thực hành có sẵn' },
+  { icon: 'gem', title: '15 phút mỗi ngày', text: 'Làm được ở bất cứ đâu' },
+  { icon: 'crown', title: 'Chơi theo nhịp bạn', text: 'Lỡ một ngày? Chơi tiếp màn sau' },
+];
+
+// Đồng xu và kim cương lơ lửng quanh màn hình (ít, chỉ để trang trí).
+const loot = [
+  { k: 'coin', x: 6, y: 22, s: 38, d: 0 },
+  { k: 'gem', x: 92, y: 16, s: 34, d: 0.8 },
+  { k: 'coin', x: 88, y: 70, s: 30, d: 1.6 },
+  { k: 'gem', x: 4, y: 78, s: 28, d: 2.2 },
+];
+
+const posterSrcset = `${url('images/manifest-poster-600.webp')} 600w, ${url('images/manifest-poster.webp')} 900w`;
+const posterSizes = '(min-width: 861px) 380px, 92vw';
+---
+
+<BaseLayout title="Mở khoá The Magic">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fff3a0"></stop><stop offset=".5" stop-color="#ffc21a"></stop><stop offset="1" stop-color="#d97a00"></stop>
+      </linearGradient>
+      <linearGradient id="ice" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff"></stop><stop offset=".45" stop-color="#7fd8ff"></stop><stop offset="1" stop-color="#1f7ae0"></stop>
+      </linearGradient>
+      <symbol id="i-coin" viewBox="0 0 32 32">
+        <circle cx="16" cy="16" r="14" fill="url(#gold)" stroke="#7a3d00" stroke-width="2.5"></circle>
+        <circle cx="16" cy="16" r="9.5" fill="none" stroke="#b86200" stroke-width="1.6"></circle>
+        <path d="M13 11h6M16 9v14M13 21h6" stroke="#9a4f00" stroke-width="2.2" stroke-linecap="square"></path>
+      </symbol>
+      <symbol id="i-gem" viewBox="0 0 32 32">
+        <path d="M8 5h16l6 8-14 16L2 13z" fill="url(#ice)" stroke="#0b3a8c" stroke-width="2" stroke-linejoin="round"></path>
+        <path d="M2 13h28M11 5l-3 8 8 16 8-16-3-8M16 5l-5 8M16 5l5 8" fill="none" stroke="#0b3a8c" stroke-width="1.1" opacity=".6"></path>
+        <path d="M9 7h5l-3 4z" fill="#fff" opacity=".85"></path>
+      </symbol>
+      <symbol id="i-crown" viewBox="0 0 32 32">
+        <path d="M3 10l7 6 6-10 6 10 7-6-3 16H6z" fill="url(#gold)" stroke="#7a3d00" stroke-width="2" stroke-linejoin="round"></path>
+        <circle cx="16" cy="19" r="2.4" fill="#e0245e"></circle><circle cx="9.5" cy="20" r="1.6" fill="#29a8ff"></circle><circle cx="22.5" cy="20" r="1.6" fill="#29a8ff"></circle>
+      </symbol>
+      <symbol id="i-heart" viewBox="0 0 14 12" shape-rendering="crispEdges">
+        <path d="M2 0h3v1h1v1h2V1h1V0h3v1h1v1h1v4h-1v1h-1v1h-1v1h-1v1H9v1H8v1H6v-1H5V9H4V8H3V7H2V6H1V2h1V1h0z" fill="#ff3a4f" stroke="#7a0016" stroke-width=".6"></path>
+        <path d="M3 2h2v1H3z" fill="#fff" opacity=".9"></path>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="game">
+    <div class="rays" aria-hidden="true"></div>
+
+    <!-- Cảnh bãi biển pixel (trang trí): trên thoáng (mây, mặt trời), dưới là biển + cát. -->
+    <div class="scene" aria-hidden="true">
+      <svg class="sun" viewBox="0 0 24 24" shape-rendering="crispEdges">
+        <path fill="#ffc21a" d="M11 0h2v3h-2zM11 21h2v3h-2zM0 11h3v2H0zM21 11h3v2h-3zM3 3h2v2H3zM19 3h2v2h-2zM3 19h2v2H3zM19 19h2v2h-2z"></path>
+        <path fill="#ffe14a" d="M8 4h8v2h2v2h2v8h-2v2h-2v2H8v-2H6v-2H4V8h2V6h2z"></path>
+        <path fill="#fff6b0" d="M8 7h4v2h-2v2H8z"></path>
+      </svg>
+      {
+        [1, 2, 3].map((n) => (
+          <svg class={`cloud c${n}`} viewBox="0 0 32 14" shape-rendering="crispEdges">
+            <path fill="#ffffff" d="M10 3h8V2h6v2h2v2h2v2h2v2h2v3H0v-3h2V8h2V6h4V4h2z" />
+            <path fill="#d6f0ff" d="M0 12h32v1H0zM24 9h4v1h-4z" />
+          </svg>
+        ))
+      }
+
+      <div class="beach">
+        <svg class="beach-ground" width="100%" height="100%">
+          <defs>
+            <pattern id="p-sea" width="48" height="18" patternUnits="userSpaceOnUse">
+              <rect width="48" height="18" fill="#1ea4dc"></rect>
+              <rect y="6" width="48" height="3" fill="#178cc6"></rect>
+              <rect y="14" width="48" height="3" fill="#178cc6"></rect>
+              <rect x="4" y="2" width="6" height="2" fill="#bff0ff"></rect>
+              <rect x="28" y="10" width="8" height="2" fill="#bff0ff"></rect>
+              <rect x="40" y="3" width="4" height="2" fill="#ffffff"></rect>
+            </pattern>
+            <pattern id="p-foam" width="24" height="8" patternUnits="userSpaceOnUse">
+              <rect width="8" height="4" fill="#ffffff"></rect>
+              <rect x="8" y="3" width="8" height="4" fill="#ffffff"></rect>
+              <rect x="16" width="8" height="4" fill="#ffffff"></rect>
+            </pattern>
+            <pattern id="p-sand" width="24" height="24" patternUnits="userSpaceOnUse">
+              <rect width="24" height="24" fill="#ffd666"></rect>
+              <rect x="3" y="4" width="2" height="2" fill="#f2bd3e"></rect>
+              <rect x="15" y="9" width="2" height="2" fill="#f2bd3e"></rect>
+              <rect x="8" y="17" width="2" height="2" fill="#fff0b0"></rect>
+              <rect x="19" y="20" width="2" height="2" fill="#e8ad2e"></rect>
+            </pattern>
+          </defs>
+          <rect width="100%" height="4" fill="#9be3ff"></rect>
+          <g class="sea"><rect x="-48" y="4" width="200%" height="60" fill="url(#p-sea)"></rect></g>
+          <rect y="62" width="100%" height="8" fill="url(#p-foam)"></rect>
+          <rect y="68" width="100%" height="100%" fill="url(#p-sand)"></rect>
+          <rect y="68" width="100%" height="5" fill="#f0c050"></rect>
+        </svg>
+
+        {
+          ['left', 'right'].map((side) => (
+            <svg class={`palm palm-${side}`} viewBox="0 0 24 40" shape-rendering="crispEdges">
+              <path fill="#8a4b14" d="M11 14h3v6h-3zM12 20h3v6h-3zM12 26h3v7h-3zM11 33h3v7h-3z" />
+              <path fill="#c27a2c" d="M11 14h1v6h-1zM12 20h1v6h-1zM12 26h1v7h-1zM11 33h1v7h-1z" />
+              <path
+                fill="#1f8a3a"
+                d="M1 13h2v2H1zM3 11h2v2H3zM5 9h2v2H5zM7 8h4v2H7zM21 13h2v2h-2zM19 11h2v2h-2zM17 9h2v2h-2zM13 8h4v2h-4zM11 6h2v3h-2zM12 4h3v2h-3zM14 3h3v2h-3zM8 11h2v2H8zM6 13h2v2H6zM5 15h2v2H5zM14 11h2v2h-2zM16 13h2v2h-2zM17 15h2v2h-2z"
+              />
+              <path fill="#4cc85e" d="M2 12h2v1H2zM4 10h2v1H4zM6 8h2v1H6zM20 12h2v1h-2zM18 10h2v1h-2zM16 8h2v1h-2zM13 3h3v1h-3z" />
+              <path fill="#5a2e0c" d="M10 12h2v2h-2zM13 12h2v2h-2z" />
+            </svg>
+          ))
+        }
+        <svg class="chest" viewBox="0 0 20 16" shape-rendering="crispEdges">
+          <path fill="#ffd34e" d="M3 1h3v2H3zM7 0h3v2H7zM12 1h3v2h-3z" />
+          <path fill="#a85d1c" d="M2 3h16v5H2z" />
+          <path fill="#8a4b14" d="M1 8h18v7H1z" />
+          <path fill="#ffc21a" d="M1 7h18v1H1zM9 3h2v12H9z" />
+          <path fill="#fff3a0" d="M9 9h2v2H9z" />
+          <path fill="#5a2e0c" d="M1 15h18v1H1z" />
+        </svg>
+        <svg class="coins" viewBox="0 0 16 10" shape-rendering="crispEdges">
+          <path fill="#d98a00" d="M0 8h16v2H0zM2 5h12v3H2zM5 2h7v3H5z" />
+          <path fill="#ffd34e" d="M0 8h14v1H0zM2 5h10v1H2zM5 2h5v1H5zM7 0h3v2H7z" />
+          <path fill="#fff6b0" d="M3 5h2v1H3zM6 2h2v1H6zM1 8h2v1H1z" />
+        </svg>
+      </div>
+    </div>
+    <div class="loot" aria-hidden="true">
+      {
+        loot.map((l) => (
+          <svg style={`left:${l.x}%;top:${l.y}%;width:${l.s}px;height:${l.s}px;--d:${l.d}s`}>
+            <use href={`#i-${l.k}`} />
+          </svg>
+        ))
+      }
+    </div>
+
+    <header class="hud">
+      <a class="player" href={url()} aria-label={`${site.plate}, về đầu trang`}>
+        <img src={url(site.avatar)} alt="" width="48" height="48" />
+        <span>
+          <span class="plate">{site.plate}</span>
+          <span class="hearts" aria-hidden="true">
+            {Array.from({ length: 5 }, () => <svg><use href="#i-heart" /></svg>)}
+          </span>
+        </span>
+      </a>
+      <p class="stats" aria-label="28 ngày, lòng biết ơn không giới hạn">
+        <span><svg aria-hidden="true"><use href="#i-coin" /></svg> × 28 NGÀY</span>
+        <span><svg aria-hidden="true"><use href="#i-gem" /></svg> × ∞ BIẾT ƠN</span>
+      </p>
+      <p class="level" aria-hidden="true"><svg><use href="#i-crown" /></svg> LV.1 <span>▸ 28</span></p>
+    </header>
+
+    <main id="main" class="arena" tabindex="-1">
+      <section class="quest" aria-labelledby="quest-title">
+        <p class="tag">★ Nhiệm vụ mới đã mở ★</p>
+        <h1 id="quest-title">
+          <span class="line l1">
+            <span class="t3d gold t1" data-text="Mở khoá">Mở khoá</span>
+            <i class="spark s1" aria-hidden="true"></i>
+          </span>
+          <span class="line l2">
+            <span class="t3d blue t2" data-text="The Magic">The Magic</span>
+            <i class="spark s2" aria-hidden="true"></i>
+            <i class="spark s3" aria-hidden="true"></i>
+          </span>
+        </h1>
+
+        <div class="quest-body">
+          <Cta class="book" aria-label="Mở mục lục The Magic" data-cta>
+            <img
+              src={url('images/the-magic-book-cover-img.webp')}
+              alt="Bìa sách The Magic của Rhonda Byrne"
+              width="449"
+              height="641"
+              decoding="async"
+            />
+            <span class="shine" aria-hidden="true"></span>
+          </Cta>
+
+          <div class="copy">
+            <p class="hook">
+              Chỉ cần thực hành <strong>15 phút mỗi ngày</strong>, <strong>may mắn, tiền, một cuộc đời thịnh vượng,
+              cơ hội, phước lành</strong> sẽ tràn vào cuộc đời bạn một cách ồ ạt!!!
+            </p>
+            <p class="dare">Không tin à? Thử đi :-)</p>
+          </div>
+        </div>
+
+        <ul class="powerups">
+          {
+            powerUps.map((p) => (
+              <li>
+                <svg aria-hidden="true">
+                  <use href={`#i-${p.icon}`} />
+                </svg>
+                <span>
+                  <strong>{p.title}</strong>
+                  {p.text}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <Cta class="start" data-cta data-hero-cta>
+          <span class="play" aria-hidden="true">▶</span>
+          <span>Bắt đầu đưa phép màu vào cuộc đời bạn&nbsp;!!!</span>
+        </Cta>
+        <p class="fine">
+          {indexUrl ? 'Mở mục lục The Magic · Chọn phần bạn muốn đọc.' : 'Mục lục ebook The Magic đang được chuẩn bị.'}
+          Đây là lời mời thực hành, không phải lời hứa về tiền bạc hay kết quả.
+        </p>
+      </section>
+
+      <figure class="poster">
+        <picture>
+          <source type="image/webp" srcset={posterSrcset} sizes={posterSizes} />
+          <img
+            src={url('images/manifest-poster.png')}
+            width="941"
+            height="1672"
+            decoding="async"
+            alt="Poster phong cách game pixel: chàng trai đeo kính râm giơ nam châm giữa bãi biển nhiệt đới, xung quanh là đồng vàng và kim cương, kèm dòng chữ “Tôi là một thỏi nam châm hút tiền.”"
+          />
+        </picture>
+        <figcaption>Poster cảm hứng của website, không phải hình minh hoạ chính thức của sách.</figcaption>
+      </figure>
+    </main>
+
+    <footer class="foot">
+      <p class="foot-line">Mỗi hành trình đều bắt đầu bằng một bước nhỏ.</p>
+      <p class="foot-small">Website chia sẻ độc lập. The Magic là tác phẩm của Rhonda Byrne.</p>
+    </footer>
+  </div>
+
+  <!-- Thanh đọc cố định trên điện thoại: chỉ hiện khi nút START đã cuộn khỏi màn hình. -->
+  <div class="readbar" data-readbar>
+    <span class="readbar-label">The Magic</span>
+    <Cta class="readbar-btn" data-cta>▶ Mở mục lục</Cta>
+  </div>
+
+  <!-- Thông báo khi chưa có URL mục lục. -->
+  {
+    !indexUrl && (
+      <div class="toast" role="status" aria-live="polite" data-toast hidden>
+        <p>Mục lục The Magic đang được chuẩn bị. Bạn quay lại sau nhé.</p>
+        <button type="button" class="toast-close" data-toast-close aria-label="Đóng thông báo">
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    )
+  }
+</BaseLayout>
+
+<script>
+  // Thanh đọc cố định: hiện khi nút START đã khuất phía trên màn hình.
+  const bar = document.querySelector<HTMLElement>('[data-readbar]');
+  const start = document.querySelector('[data-hero-cta]');
+  if (bar && start && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => {
+      bar.classList.toggle('is-on', !e!.isIntersecting && e!.boundingClientRect.bottom < 0);
+    }).observe(start);
+  }
+
+  // Chưa có URL mục lục: nhấn nút thì hiện thông báo nhỏ, đóng được, tự ẩn sau vài giây.
+  const toast = document.querySelector<HTMLElement>('[data-toast]');
+  if (toast) {
+    let timer = 0;
+    const hide = () => {
+      toast.classList.remove('is-on');
+      window.setTimeout(() => (toast.hidden = true), 200);
+    };
+    const show = () => {
+      window.clearTimeout(timer);
+      toast.hidden = false;
+      requestAnimationFrame(() => toast.classList.add('is-on'));
+      timer = window.setTimeout(hide, 6000);
+    };
+    document.querySelectorAll('[data-pending]').forEach((btn) => btn.addEventListener('click', show));
+    toast.querySelector('[data-toast-close]')?.addEventListener('click', hide);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !toast.hidden) hide();
+    });
+  }
+</script>
+
+<style>
+  :global(body) {
+    background: #2b8cf0;
+  }
+  .game {
+    --ink: #2a1400;
+    --gold: #ffc21a;
+    --gold-hi: #fff3a0;
+    --deep: #7a3d00;
+    --blue: #1f7ae0;
+    --display: 'Bungee', 'Be Vietnam Pro', system-ui, sans-serif;
+    position: relative;
+    min-height: 100svh;
+    overflow: hidden;
+    color: var(--ink);
+    padding: 0 clamp(0.75rem, 3vw, 2rem) 1.5rem;
+    /* Trời: xanh đậm trên đỉnh, nhạt dần về đường chân trời (biển + cát vẽ ở .beach). */
+    background: linear-gradient(180deg, #2b8cf0 0%, #5cb8ff 35%, #a9e2ff 75%, #c9eeff 100%);
+  }
+
+  /* ---------- Cảnh bãi biển pixel ---------- */
+  .scene {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .scene svg {
+    position: absolute;
+    image-rendering: pixelated;
+  }
+  .sun {
+    top: 5.5rem;
+    right: 3%;
+    width: clamp(56px, 7vw, 96px);
+    filter: drop-shadow(0 0 18px rgb(255 225 74 / 0.75));
+  }
+  .cloud {
+    width: clamp(90px, 11vw, 170px);
+    opacity: 0.95;
+  }
+  .c1 {
+    top: 9rem;
+    left: 2%;
+  }
+  .c2 {
+    top: 4.2rem;
+    left: 44%;
+    width: clamp(70px, 8vw, 120px);
+    opacity: 0.85;
+  }
+  .c3 {
+    top: 15rem;
+    right: 1%;
+    width: clamp(80px, 9vw, 140px);
+  }
+  .beach {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 230px;
+  }
+  .beach .beach-ground {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    image-rendering: auto;
+  }
+  .palm {
+    bottom: 34px;
+    width: clamp(90px, 10vw, 140px);
+  }
+  .palm-left {
+    left: -12px;
+  }
+  .palm-right {
+    right: -12px;
+    scale: -1 1;
+  }
+  .chest {
+    bottom: 26px;
+    right: clamp(90px, 12vw, 170px);
+    width: clamp(44px, 4.5vw, 64px);
+  }
+  .coins {
+    bottom: 22px;
+    left: clamp(96px, 12vw, 170px);
+    width: clamp(36px, 3.5vw, 52px);
+  }
+  /* Tia sáng toả từ giữa như phía sau dòng chữ trên poster. */
+  .rays {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: 180vmax;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    background: repeating-conic-gradient(from 0deg, rgb(255 246 190 / 0.32) 0deg 7deg, transparent 7deg 18deg);
+    mask: radial-gradient(circle, #000 0%, rgb(0 0 0 / 0.6) 25%, transparent 55%);
+    pointer-events: none;
+  }
+  .loot svg {
+    position: absolute;
+    filter: drop-shadow(0 3px 0 rgb(0 0 0 / 0.25));
+    pointer-events: none;
+  }
+
+  /* ---------- HUD ---------- */
+  .hud {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.25rem;
+    padding: 0.9rem 0 0.5rem;
+  }
+  .hud p {
+    margin: 0;
+  }
+  .player {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+  }
+  .player:focus-visible {
+    outline: 3px solid #fff;
+  }
+  .player img {
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+    border: 3px solid var(--ink);
+    border-radius: 6px;
+    box-shadow: 0 3px 0 var(--ink);
+  }
+  .plate {
+    display: block;
+    margin-bottom: 0.2rem;
+    font: 400 0.82rem/1.3 var(--display);
+    color: var(--gold-hi);
+    background: linear-gradient(180deg, #5a2a00, #2a1400);
+    border: 2px solid var(--gold);
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    text-shadow: 0 2px 0 #000;
+  }
+  .hearts {
+    display: flex;
+    gap: 3px;
+  }
+  .hearts svg {
+    width: 20px;
+    height: 17px;
+  }
+  .stats {
+    display: flex;
+    gap: 1rem;
+  }
+  .stats span,
+  .level {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font: 400 0.95rem var(--display);
+    color: #fff;
+    text-shadow:
+      2px 2px 0 var(--ink),
+      -1px -1px 0 var(--ink),
+      1px -1px 0 var(--ink),
+      -1px 1px 0 var(--ink);
+  }
+  .stats svg,
+  .level svg {
+    width: 26px;
+    height: 26px;
+  }
+  .level {
+    font-size: 1.15rem;
+    color: var(--gold-hi);
+  }
+  .level span {
+    font-size: 0.8rem;
+    color: #fff;
+  }
+
+  /* ---------- Khu vực chính ---------- */
+  .arena {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 380px);
+    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: center;
+    padding-top: 0.5rem;
+  }
+  .arena:focus {
+    outline: none;
+  }
+  .quest {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #fffbe6, #fff0c2);
+    border: 4px solid var(--ink);
+    border-radius: 14px;
+    box-shadow:
+      inset 0 0 0 3px var(--gold),
+      0 8px 0 var(--deep),
+      0 22px 36px rgb(0 40 100 / 0.35);
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+  }
+  .tag {
+    align-self: flex-start;
+    margin: 0 0 0.75rem;
+    font: 400 0.8rem/1.4 var(--display);
+    letter-spacing: 0.06em;
+    color: #fff;
+    background: #e0245e;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    box-shadow: 0 3px 0 var(--ink);
+  }
+
+  /*
+   * Tiêu đề kiểu logo game: chữ khối 3D (khối đùn nhiều tầng + mặt gradient có vệt bóng),
+   * viền trắng ngoài + nét mực mảnh, hai dòng so le, nảy lên khi vào trang,
+   * vệt sáng chạy qua mặt chữ và vài ánh sao chớp.
+   */
+  h1 {
+    margin: 0.2rem 0 1.4rem;
+    font-weight: 400;
+  }
+  .line {
+    position: relative;
+    display: block;
+    width: fit-content;
+  }
+  .l1 {
+    rotate: -5deg;
+    transform-origin: left bottom;
+  }
+  .l2 {
+    margin: -0.05em 0 0 0.55em;
+    rotate: -1.5deg;
+  }
+  .t3d {
+    position: relative;
+    display: block;
+    width: fit-content;
+    padding-top: 0.14em;
+    font-family: var(--display);
+    line-height: 1.12;
+    letter-spacing: 0.07em;
+    -webkit-text-stroke: 0.075em var(--ink);
+    paint-order: stroke fill;
+    filter:
+      drop-shadow(2.5px 0 0 #fff) drop-shadow(-2.5px 0 0 #fff) drop-shadow(0 2.5px 0 #fff) drop-shadow(0 -2.5px 0 #fff)
+      drop-shadow(1.5px 0 0 var(--ink)) drop-shadow(-1.5px 0 0 var(--ink)) drop-shadow(0 1.5px 0 var(--ink))
+      drop-shadow(0 -1.5px 0 var(--ink)) drop-shadow(0 10px 8px rgb(60 25 0 / 0.35));
+  }
+  /* Mặt chữ: lớp vẽ đè cùng chữ (data-text), không để trình đọc màn hình đọc lặp. */
+  .t3d::after {
+    content: attr(data-text);
+    content: attr(data-text) / '';
+    position: absolute;
+    inset: 0;
+    padding-top: inherit;
+    -webkit-text-stroke: 0;
+    text-shadow: none;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size:
+      250% 100%,
+      100% 100%,
+      100% 100%;
+    background-repeat: no-repeat;
+    background-position:
+      150% 0,
+      0 0,
+      0 0;
+    pointer-events: none;
+  }
+  .t1 {
+    font-size: clamp(2rem, 1.25rem + 3.2vw, 3.4rem);
+  }
+  .t2 {
+    font-size: clamp(2.6rem, 1.5rem + 4.8vw, 4.8rem);
+  }
+  .gold {
+    color: #ffb000;
+    text-shadow:
+      0 1px 0 #f7a200, 0 2px 0 #ef9400, 0 3px 0 #e68600, 0 4px 0 #db7800, 0 5px 0 #cf6a00,
+      0 6px 0 #c05d00, 0 7px 0 #a84e00, 0 8px 0 #8f4100, 0 9px 0 var(--ink), 0 10px 0 var(--ink),
+      0 11px 0 var(--ink);
+  }
+  .gold::after {
+    background-image:
+      linear-gradient(105deg, transparent 42%, rgb(255 255 255 / 0.95) 50%, transparent 58%),
+      linear-gradient(180deg, rgb(255 255 255 / 0.95) 0 30%, transparent 46%),
+      linear-gradient(180deg, #fffbe0 0%, #ffe45c 40%, #ffbe1a 62%, #ff9800 100%);
+  }
+  .blue {
+    color: #2f8cff;
+    text-shadow:
+      0 1px 0 #2a84f2, 0 2px 0 #2479e3, 0 3px 0 #1e6ed4, 0 4px 0 #1963c3, 0 5px 0 #1557b1,
+      0 6px 0 #114c9f, 0 7px 0 #0e418b, 0 8px 0 #0b3676, 0 9px 0 #0a2c62, 0 10px 0 var(--ink),
+      0 11px 0 var(--ink), 0 12px 0 var(--ink);
+  }
+  .blue::after {
+    background-image:
+      linear-gradient(105deg, transparent 42%, rgb(255 255 255 / 0.95) 50%, transparent 58%),
+      linear-gradient(180deg, rgb(255 255 255 / 0.95) 0 28%, transparent 45%),
+      linear-gradient(180deg, #ffffff 0%, #c9f0ff 38%, #6fcbff 62%, #2e8fff 100%);
+  }
+  /* Ánh sao 4 cánh quanh chữ. */
+  .spark {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background:
+      radial-gradient(circle, #fff 0 16%, transparent 18%),
+      conic-gradient(from 45deg, transparent 0 20deg, #fff 20deg 25deg, transparent 25deg 110deg, #fff 110deg 115deg, transparent 115deg 200deg, #fff 200deg 205deg, transparent 205deg 290deg, #fff 290deg 295deg, transparent 295deg);
+    border-radius: 50%;
+    filter: drop-shadow(0 0 2px #ffb000) drop-shadow(0 0 7px #ffd23a);
+    pointer-events: none;
+  }
+  .s1 {
+    right: -1.1rem;
+    top: -0.2rem;
+  }
+  .s2 {
+    right: -1.3rem;
+    top: 0.1rem;
+    width: 34px;
+    height: 34px;
+  }
+  .s3 {
+    left: -1rem;
+    bottom: 0.1rem;
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Sách + đoạn copy */
+  .quest-body {
+    display: grid;
+    grid-template-columns: clamp(130px, 17vw, 200px) 1fr;
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+    align-items: center;
+  }
+  .book {
+    position: relative;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    filter: drop-shadow(0 14px 14px rgb(90 40 0 / 0.45));
+    transition: transform 0.25s;
+  }
+  .book img {
+    width: 100%;
+    height: auto;
+  }
+  .book:hover {
+    transform: translateY(-4px) rotate(-1.5deg);
+  }
+  .book:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 4px;
+  }
+  .shine {
+    position: absolute;
+    right: -8%;
+    top: -6%;
+    width: 34px;
+    height: 34px;
+    background:
+      radial-gradient(circle, #fff 0 18%, transparent 20%),
+      conic-gradient(from 45deg, transparent 0 20deg, #fff8c2 20deg 25deg, transparent 25deg 110deg, #fff8c2 110deg 115deg, transparent 115deg 200deg, #fff8c2 200deg 205deg, transparent 205deg 290deg, #fff8c2 290deg 295deg, transparent 295deg);
+    border-radius: 50%;
+  }
+  .copy p {
+    margin: 0 0 0.7rem;
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: #3d2200;
+  }
+  .copy .hook {
+    font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);
+    font-weight: 600;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .copy .dare {
+    display: inline-block;
+    margin: 0.3rem 0 0;
+    font: 400 1.05rem/1.4 var(--display);
+    color: #e0245e;
+    rotate: -2deg;
+  }
+  .copy strong {
+    color: #b24a00;
+  }
+
+  .powerups {
+    list-style: none;
+    margin: 1.25rem 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+  }
+  .powerups li {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    padding: 0.55rem 0.7rem;
+    box-shadow: 0 3px 0 var(--ink);
+    font-size: 1rem;
+    line-height: 1.35;
+    color: #4a2a00;
+  }
+  .powerups svg {
+    flex: none;
+    width: 30px;
+    height: 30px;
+  }
+  .powerups strong {
+    display: block;
+    color: var(--ink);
+    font-size: 1rem;
+  }
+
+  /* Nút START kiểu nút game */
+  .start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    min-height: 60px;
+    padding: 0.8rem 1.2rem;
+    /* Chữ nút dài: cho xuống dòng gọn, canh giữa. */
+    text-align: center;
+    font: 400 clamp(1rem, 0.85rem + 0.7vw, 1.3rem) / 1.3 var(--display);
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 2px 0 var(--deep);
+    background: linear-gradient(180deg, #ffe066, #ffb000 55%, #f08a00);
+    border: 4px solid var(--ink);
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow:
+      inset 0 3px 0 rgb(255 255 255 / 0.6),
+      0 6px 0 var(--deep);
+    transition:
+      transform 0.1s,
+      box-shadow 0.1s;
+  }
+  .start:hover {
+    color: #fff;
+    filter: brightness(1.05);
+  }
+  .start:active {
+    transform: translateY(4px);
+    box-shadow:
+      inset 0 3px 0 rgb(255 255 255 / 0.6),
+      0 2px 0 var(--deep);
+  }
+  .start:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 4px;
+  }
+  .play {
+    font-family: system-ui, sans-serif;
+  }
+  .fine {
+    margin: 0.9rem 0 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #6b4a1e;
+    text-align: center;
+  }
+
+  /* Poster trong khung, nghiêng nhẹ */
+  .poster {
+    margin: 0;
+  }
+  .poster picture {
+    display: block;
+    border: 4px solid var(--ink);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 0 3px var(--gold),
+      0 8px 0 var(--deep),
+      0 22px 36px rgb(0 40 100 / 0.35);
+    rotate: 1.5deg;
+    background: #000;
+  }
+  .poster img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 941 / 1672;
+  }
+  /* Nền kem riêng để chú thích luôn đọc được, kể cả khi nằm trên dải biển. */
+  .poster figcaption {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0.9rem auto 0;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.45;
+    text-align: center;
+    color: #2a1400;
+    background: rgb(255 251 230 / 0.92);
+    border: 2px solid #2a1400;
+    border-radius: 8px;
+  }
+
+  /* Footer */
+  .foot {
+    position: relative;
+    z-index: 1;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  .foot-line {
+    margin: 0 0 0.3rem;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .foot-small {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #4a2a00;
+  }
+
+  /* ---------- Thanh đọc cố định (chỉ điện thoại) ---------- */
+  .readbar {
+    display: none;
+  }
+  @media (max-width: 767px) {
+    .readbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 72px;
+      padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom));
+      background: #fffbe6;
+      border-top: 4px solid #2a1400;
+      box-shadow:
+        inset 0 3px 0 #ffc21a,
+        0 -6px 20px rgb(0 40 100 / 0.3);
+      transform: translateY(110%);
+      visibility: hidden;
+      transition:
+        transform 0.25s ease,
+        visibility 0s linear 0.25s;
+    }
+    .readbar.is-on {
+      transform: none;
+      visibility: visible;
+      transition: transform 0.25s ease;
+    }
+    /* Chừa chỗ cuối trang để thanh không che footer. */
+    .game {
+      padding-bottom: calc(72px + 1.5rem + env(safe-area-inset-bottom));
+    }  }
+  .readbar-label {
+    font: 400 1rem/1.2 'Bungee', 'Be Vietnam Pro', sans-serif;
+    color: #2f8cff;
+    -webkit-text-stroke: 1px #2a1400;
+  }
+  .readbar-btn {
+    min-height: 46px;
+    padding: 0.5rem 1.1rem;
+    font: 400 0.9rem 'Bungee', 'Be Vietnam Pro', sans-serif;
+    color: #fff;
+    text-shadow: 0 2px 0 #7a3d00;
+    background: linear-gradient(180deg, #ffe066, #ffb000 55%, #f08a00);
+    border: 3px solid #2a1400;
+    border-radius: 12px;
+    box-shadow: 0 4px 0 #7a3d00;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .readbar-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #7a3d00;
+  }
+
+  /* ---------- Thông báo ---------- */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 1.5rem;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: min(92vw, 440px);
+    padding: 0.6rem 0.6rem 0.6rem 1.1rem;
+    background: #fffbe6;
+    color: #2a1400;
+    border: 3px solid #2a1400;
+    border-radius: 12px;
+    box-shadow:
+      inset 0 0 0 2px #ffc21a,
+      0 5px 0 #7a3d00;
+    translate: -50% 12px;
+    opacity: 0;
+    transition:
+      opacity 0.2s,
+      translate 0.2s;
+  }
+  .toast[hidden] {
+    display: none;
+  }
+  .toast.is-on {
+    opacity: 1;
+    translate: -50% 0;
+  }
+  .toast p {
+    margin: 0;
+    flex: 1;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+  .toast-close {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    flex: none;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #2a1400;
+    cursor: pointer;
+  }
+  .toast-close:hover {
+    background: rgb(42 20 0 / 0.08);
+  }
+  .toast-close:focus-visible {
+    outline-color: #1f7ae0;
+  }
+  .toast-close svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* ---------- Chuyển động (tôn trọng giảm chuyển động) ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .loot svg {
+      animation: bob 3.4s ease-in-out infinite;
+      animation-delay: var(--d);
+    }
+    .rays {
+      animation: turn 60s linear infinite;
+    }
+    .shine {
+      animation: twinkle 2.4s ease-in-out infinite;
+    }
+    .start {
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    .line {
+      animation: level-in 0.75s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+    }
+    .l2 {
+      animation-delay: 0.18s;
+    }
+    .t3d::after {
+      animation: shine 3.6s ease-in-out 1.2s infinite;
+    }
+    .t2::after {
+      animation-delay: 1.45s;
+    }
+    .spark {
+      animation: spark 2.4s ease-in-out infinite;
+    }
+    .s2 {
+      animation-delay: 0.8s;
+    }
+    .s3 {
+      animation-delay: 1.5s;
+    }
+    .poster {
+      animation: rise 0.7s ease-out both;
+    }
+    /* Sóng lăn theo bước pixel, mây trôi rất chậm. */
+    .sea {
+      animation: waves 3.2s steps(8) infinite;
+    }
+    .cloud {
+      animation: drift 22s ease-in-out infinite alternate;
+    }
+    .c2 {
+      animation-duration: 30s;
+      animation-direction: alternate-reverse;
+    }
+    .c3 {
+      animation-duration: 26s;
+    }
+  }
+  @keyframes waves {
+    to {
+      transform: translateX(48px);
+    }
+  }
+  @keyframes drift {
+    to {
+      translate: 40px 0;
+    }
+  }
+  @keyframes bob {
+    50% {
+      transform: translateY(-12px) rotate(8deg);
+    }
+  }
+  @keyframes turn {
+    to {
+      rotate: 360deg;
+    }
+  }
+  @keyframes twinkle {
+    50% {
+      transform: scale(0.5) rotate(45deg);
+      opacity: 0.4;
+    }
+  }
+  @keyframes pulse {
+    50% {
+      box-shadow:
+        inset 0 3px 0 rgb(255 255 255 / 0.6),
+        0 6px 0 var(--deep),
+        0 0 0 6px rgb(255 224 102 / 0.55);
+    }
+  }
+  @keyframes level-in {
+    0% {
+      opacity: 0;
+      scale: 0.3;
+      translate: 0 -40px;
+    }
+    55% {
+      opacity: 1;
+      scale: 1.12;
+      translate: 0 4px;
+    }
+    75% {
+      scale: 0.95;
+      translate: 0 -2px;
+    }
+    100% {
+      scale: 1;
+      translate: 0 0;
+    }
+  }
+  @keyframes shine {
+    0%,
+    60% {
+      background-position:
+        150% 0,
+        0 0,
+        0 0;
+    }
+    100% {
+      background-position:
+        -50% 0,
+        0 0,
+        0 0;
+    }
+  }
+  @keyframes spark {
+    0%,
+    100% {
+      opacity: 0.2;
+      scale: 0.4;
+      rotate: 0deg;
+    }
+    50% {
+      opacity: 1;
+      scale: 1;
+      rotate: 45deg;
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      translate: 0 16px;
+    }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .arena {
+      grid-template-columns: 1fr;
+    }
+    .poster {
+      width: 100%;
+      max-width: 380px;
+      margin-inline: auto;
+    }
+    .poster picture {
+      rotate: none;
+    }
+    .powerups {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* Điện thoại: đưa nút START lên ngay dưới tiêu đề để thấy ở màn hình đầu. */
+  @media (max-width: 767px) {
+    .start {
+      order: 3;
+    }
+    .fine {
+      order: 4;
+      margin-bottom: 1.25rem;
+    }
+    .quest-body {
+      order: 5;
+    }
+    .powerups {
+      order: 6;
+      margin-bottom: 0;
+    }
+  }
+  @media (max-width: 560px) {
+    .hud {
+      justify-content: center;
+    }
+    .level {
+      display: none;
+    }
+    .quest {
+      text-align: center;
+    }
+    .tag {
+      align-self: center;
+    }
+    .line {
+      margin-inline: auto;
+    }
+    .l1 {
+      transform-origin: center;
+      left: -0.4em;
+    }
+    .l2 {
+      left: 0.3em;
+      margin-top: 0.15em;
+    }
+    .t1 {
+      font-size: 1.75rem;
+    }
+    .t2 {
+      font-size: 2.15rem;
+    }
+    .quest-body {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+    .book {
+      width: 170px;
+    }
+    .copy,
+    .powerups li {
+      text-align: left;
+    }
+  }
+  /* Điện thoại: thông báo nằm trên thanh đáy, không đè lên nó. */
+  @media (max-width: 767px) {
+    .toast {
+      bottom: calc(72px + 0.75rem + env(safe-area-inset-bottom));
+    }
+    /* Bãi cát cao hơn để footer (nằm trên khoảng chừa cho thanh đáy) vẫn ở trên nền cát. */
+    .beach {
+      height: 290px;
+    }
+    .palm {
+      bottom: 18px;
+      width: 70px;
+    }
+    .palm-left {
+      left: -16px;
+    }
+    .palm-right {
+      right: -16px;
+    }
+    .chest,
+    .coins {
+      display: none;
+    }
+    /* Footer hẹp lại để không chạm cây dừa ở hai mép. */
+    .foot {
+      max-width: 15.5rem;
+      margin-inline: auto;
+    }
+  }
+  /* Màn hẹp: chỉ giữ mặt trời và một đám mây ở góc trên (phần giữa đã bị thẻ nội dung che). */
+  @media (max-width: 560px) {
+    .sun {
+      top: 0.6rem;
+      right: 2%;
+      width: 44px;
+    }
+    .c2 {
+      top: 0.9rem;
+      left: 2%;
+      width: 64px;
+    }
+    .c1,
+    .c3 {
+      display: none;
+    }
+  }
+</style>
