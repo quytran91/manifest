@@ -287,6 +287,65 @@
       0 12px 30px rgb(0 0 0 / 0.45) !important;
   }
 
+  /* ---------- Link trong nội dung chương ----------
+   * Muse không đặt màu cho link trong bài → trình duyệt dùng xanh dương/tím mặc định, không đọc được trên nền tối.
+   */
+  .ch-body a {
+    color: #ffe28a;
+    text-decoration-color: rgb(255 226 138 / 0.55);
+    text-underline-offset: 0.18em;
+  }
+  .ch-body a:visited {
+    color: #ffd166;
+  }
+  /* Danh sách link sang các ngày (trang Kết 1): mỗi link là một ô "chọn màn" kiểu game. */
+  .ch-body ul.reveal:has(> li > a) {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0 22px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 10px;
+  }
+  /* Các ô cùng hàng cao đều nhau. */
+  .ch-body ul.reveal:has(> li > a) > li {
+    display: flex;
+    margin: 0;
+  }
+  .ch-body ul.reveal > li > a {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 11px 14px;
+    color: #fff3c4;
+    text-decoration: none;
+    font-weight: 700;
+    line-height: 1.35;
+    background: rgb(255 255 255 / 0.06);
+    border: 2px solid rgb(255 211 78 / 0.6);
+    border-radius: 12px;
+    box-shadow: 0 3px 0 rgb(0 0 0 / 0.35);
+    transition:
+      background-color 0.15s,
+      transform 0.1s;
+  }
+  .ch-body ul.reveal > li > a::before {
+    content: '▶';
+    flex: none;
+    font-size: 0.7em;
+    color: var(--gm-gold);
+  }
+  .ch-body ul.reveal > li > a:hover {
+    background: rgb(255 211 78 / 0.18);
+    transform: translateY(-1px);
+  }
+  .ch-body ul.reveal > li > a:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+  }
+
   /* ---------- Trang mục lục (index) ---------- */
   .hero .kick {
     display: inline-block;
