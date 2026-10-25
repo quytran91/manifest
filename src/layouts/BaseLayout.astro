@@ -25,8 +25,16 @@ const ogImage = absoluteUrl(site.ogImage, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
-    <meta name="theme-color" content="#071D35" />
+    <meta name="theme-color" content="#2b8cf0" />
     <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <!-- Cài lên màn hình chính điện thoại như một app: icon, tên dưới icon, mở toàn màn hình. -->
+    <link rel="apple-touch-icon" href={url('apple-touch-icon.png')} />
+    <link rel="manifest" href={url('manifest.webmanifest')} />
+    <meta name="apple-mobile-web-app-title" content="Manifest" />
+    <meta name="application-name" content="Manifest" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <link rel="sitemap" href={url('sitemap-index.xml')} />
 
     <meta property="og:site_name" content={site.name} />
