@@ -624,7 +624,9 @@
     -webkit-mask: radial-gradient(circle, #000 69%, transparent 70%);
     mask: radial-gradient(circle, #000 69%, transparent 70%);
   }
+  /* position: relative bắt buộc: thiếu nó (trang dùng style.css của Muse) vệt sáng phình ra cả khung chương */
   .ch-num {
+    position: relative !important;
     overflow: hidden;
   }
 
