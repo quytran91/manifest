@@ -193,10 +193,11 @@
     box-shadow:
       inset 0 0 0 3px var(--gm-gold),
       inset 0 0 0 5px rgb(42 20 0 / 0.6),
-      0 9px 0 #0a1a3a,
-      0 26px 50px rgb(0 30 80 / 0.35) !important;
+      0 4px 0 rgb(10 26 58 / 0.55),
+      0 12px 22px rgb(0 30 80 / 0.28),
+      0 28px 44px -16px rgb(0 30 80 / 0.4) !important;
   }
-  /* Ô thống kê: bóng mềm, gọn (bóng lan rộng bị khung .hero cắt thành mép thẳng) */
+  /* Ô thống kê: bóng gọn hơn (bóng lan rộng bị khung .hero cắt thành mép thẳng) */
   .stat {
     box-shadow:
       inset 0 0 0 3px var(--gm-gold),
@@ -216,8 +217,9 @@
     box-shadow:
       inset 0 0 0 3px var(--gm-gold-hi),
       inset 0 0 0 5px rgb(42 20 0 / 0.6),
-      0 13px 0 #0a1a3a,
-      0 30px 54px rgb(0 30 80 / 0.4) !important;
+      0 6px 0 rgb(10 26 58 / 0.5),
+      0 18px 30px rgb(0 30 80 / 0.3),
+      0 36px 54px -18px rgb(0 30 80 / 0.45) !important;
   }
   .chapter::before,
   .card::before {
@@ -429,8 +431,9 @@
     overflow: hidden;
     box-shadow:
       0 0 0 3px var(--gm-gold),
-      0 10px 0 #0a1a3a,
-      0 26px 50px rgb(0 30 80 / 0.35);
+      0 4px 0 rgb(10 26 58 / 0.55),
+      0 12px 22px rgb(0 30 80 / 0.28),
+      0 28px 44px -16px rgb(0 30 80 / 0.4);
   }
 
   /* ---------- Chân trang nằm trên bãi cát ---------- */
