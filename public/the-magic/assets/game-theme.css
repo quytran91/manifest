@@ -196,6 +196,15 @@
       0 9px 0 #0a1a3a,
       0 26px 50px rgb(0 30 80 / 0.35) !important;
   }
+  /* Ô thống kê: bóng mềm, gọn (bóng lan rộng bị khung .hero cắt thành mép thẳng) */
+  .stat {
+    box-shadow:
+      inset 0 0 0 3px var(--gm-gold),
+      inset 0 0 0 5px rgb(42 20 0 / 0.6),
+      0 3px 0 rgb(10 26 58 / 0.55),
+      0 8px 14px rgb(0 30 80 / 0.3),
+      0 16px 26px -10px rgb(0 30 80 / 0.35) !important;
+  }
   .chapter {
     border-radius: 20px !important;
   }
